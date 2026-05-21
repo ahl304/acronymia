@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acronymia - Ultimate Global Dictionary of Short & Full Forms</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f4ff',
+              100: '#e1e9ff',
+              200: '#c8d7ff',
+              300: '#a1baff',
+              400: '#7091ff',
+              500: '#4361ee', // Primary
+              600: '#2b3fd4',
+              700: '#202fa6',
+              800: '#1e2885',
+              900: '#1c246b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar for premium feel */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .dark ::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #475569;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    
+    /* Smooth transitions */
+    .transition-all-300 {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans transition-colors duration-300 min-h-screen flex flex-col">
+
+  <!-- TOP BAR & NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center space-x-2 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-indigo-600 flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-brand-500/25 group-hover:scale-105 transition-transform">
+          A
+        </div>
+        <div>
+          <span class="font-extrabold text-xl bg-gradient-to-r from-brand-600 to-indigo-500 bg-clip-text text-transparent dark:from-brand-400 dark:to-indigo-300">
+            Acronymia
+          </span>
+          <span class="block text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-wider uppercase -mt-1">
+            The Global Index
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <button onclick="switchTab('dictionary')" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/50" id="btn-tab-dictionary">
+          <i class="fa-solid fa-book-open mr-1.5"></i> Dictionary
+        </button>
+        <button onclick="switchTab('quiz')" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" id="btn-tab-quiz">
+          <i class="fa-solid fa-gamepad mr-1.5"></i> Quiz Arena
+        </button>
+        <button onclick="switchTab('contribute')" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" id="btn-tab-contribute">
+          <i class="fa-solid fa-plus-circle mr-1.5"></i> Submit New
+        </button>
+      </nav>
+
+      <!-- Right Controls: Light/Dark Mode & Social -->
+      <div class="flex items-center space-x-3">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle-btn" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-slate-700 dark:text-slate-200" title="Toggle theme">
+          <i class="fa-solid fa-moon text-lg dark:hidden"></i>
+          <i class="fa-solid fa-sun text-lg hidden dark:block"></i>
+        </button>
+        
+        <!-- Mobile Menu Toggle Button -->
+        <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200">
+          <i id="mobile-menu-icon" class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3 space-y-2">
+      <button onclick="switchTab('dictionary'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-lg text-sm font-semibold flex items-center space-x-2 text-brand-600 bg-brand-50 dark:text-brand-400 dark:bg-brand-950/50" id="mob-btn-tab-dictionary">
+        <i class="fa-solid fa-book-open w-5 text-center"></i> <span>Dictionary</span>
+      </button>
+      <button onclick="switchTab('quiz'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-lg text-sm font-semibold flex items-center space-x-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" id="mob-btn-tab-quiz">
+        <i class="fa-solid fa-gamepad w-5 text-center"></i> <span>Quiz Arena</span>
+      </button>
+      <button onclick="switchTab('contribute'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-lg text-sm font-semibold flex items-center space-x-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" id="mob-btn-tab-contribute">
+        <i class="fa-solid fa-plus-circle w-5 text-center"></i> <span>Submit New</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- TAB 1: DICTIONARY VIEW -->
+    <section id="tab-dictionary" class="space-y-8">
+      <!-- HERO SEARCH BOX -->
+      <div class="relative bg-gradient-to-br from-brand-600 to-indigo-800 rounded-3xl p-6 sm:p-10 text-white overflow-hidden shadow-2xl shadow-brand-500/10">
+        <!-- Abstract glowing circles in background -->
+        <div class="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+        <div class="absolute -bottom-16 -left-16 w-80 h-80 rounded-full bg-brand-400/20 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-3xl mx-auto text-center space-y-6">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white backdrop-blur-sm">
+            <i class="fa-solid fa-earth-americas mr-1.5 animate-spin-slow"></i> Exhaustive Global Index
+          </span>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
+            What does that short form mean?
+          </h1>
+          <p class="text-sm sm:text-base text-brand-100 max-w-xl mx-auto">
+            Search 100+ native abbreviations or activate our AI engine to decode any obscure short form from anywhere on the planet instantly!
+          </p>
+
+          <!-- Search Bar & Controls -->
+          <div class="space-y-4">
+            <div class="relative flex flex-col md:flex-row items-stretch gap-2.5 bg-white/10 p-2 rounded-2xl backdrop-blur-md border border-white/20">
+              <div class="relative flex-grow">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-lg"></i>
+                <input 
+                  type="text" 
+                  id="search-input"
+                  oninput="handleSearchInput()"
+                  placeholder="Type an acronym... (e.g., NASA, ICU, SaaS, IMO)" 
+                  class="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-400 shadow-inner"
+                />
+                <!-- Auto-suggest box -->
+                <div id="autosuggest-box" class="hidden absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl overflow-hidden z-50 text-left max-h-60 overflow-y-auto">
+                  <!-- dynamically filled -->
+                </div>
+              </div>
+              <button 
+                onclick="triggerSearch()"
+                class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center space-x-2"
+              >
+                <span>Search</span>
+              </button>
+            </div>
+
+            <!-- Global AI Toggle Indicator -->
+            <div class="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-brand-100">
+              <span>Can't find it in our database?</span>
+              <button onclick="triggerAISearch()" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-3 py-1.5 rounded-lg flex items-center space-x-1.5 transition-all shadow-md hover:scale-105">
+                <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
+                <span>Lookup Globally with AI</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP SUMMARY STATISTICS -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-center shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold text-brand-500" id="stat-total">100+</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider mt-1">Acronyms Loaded</div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-center shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold text-emerald-500" id="stat-categories">8</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider mt-1">Major Sectors</div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-center shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold text-purple-500">Global</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider mt-1">AI Live Reach</div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-center shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold text-amber-500" id="stat-user-added">0</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider mt-1">User Contributions</div>
+        </div>
+      </div>
+
+      <!-- MAIN FILTER & CONTENT AREA -->
+      <div class="space-y-6">
+        <!-- Sector Selector / Filters -->
+        <div class="flex flex-col space-y-3">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold flex items-center space-x-2">
+              <i class="fa-solid fa-filter text-slate-400"></i>
+              <span>Filter by Industry/Category</span>
+            </h2>
+            <button onclick="resetFilters()" class="text-xs text-brand-600 dark:text-brand-400 hover:underline font-semibold flex items-center space-x-1">
+              <i class="fa-solid fa-rotate"></i> <span>Reset All</span>
+            </button>
+          </div>
+          <!-- Filter pills wrapper with horizontal scroll on small devices -->
+          <div class="flex items-center space-x-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0" id="category-pills-container">
+            <!-- Dynamic Category Pills will sit here -->
+          </div>
+        </div>
+
+        <!-- Alpha Index Jump Menu -->
+        <div class="bg-white dark:bg-slate-900 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-x-auto">
+          <div class="flex items-center space-x-1 min-w-max text-sm" id="alpha-jump-container">
+            <!-- Dynamic Alphabetic Buttons (A to Z, All) -->
+          </div>
+        </div>
+
+        <!-- Dictionary Grid / Card list -->
+        <div>
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+            <p class="text-sm text-slate-500 dark:text-slate-400" id="results-count">
+              Showing <span class="font-bold text-slate-800 dark:text-slate-200">X</span> results
+            </p>
+            <div class="flex items-center space-x-2 text-xs">
+              <span class="text-slate-500">Sort by:</span>
+              <select onchange="handleSortChange(this.value)" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2 py-1 focus:outline-none text-slate-700 dark:text-slate-300 font-medium">
+                <option value="asc">A - Z (Alphabetical)</option>
+                <option value="desc">Z - A</option>
+                <option value="recent">Recently Added</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="dictionary-grid">
+            <!-- Dynamic Cards Load Here -->
+          </div>
+
+          <!-- Empty State -->
+          <div id="empty-state" class="hidden flex-col items-center justify-center text-center p-12 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-4">
+            <div class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 text-2xl">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">No matches found in our database</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto mt-1">
+                But don't give up! We can search our Live AI Core to find its definition immediately.
+              </p>
+            </div>
+            <button onclick="triggerAISearchFromEmptyState()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold px-5 py-2.5 rounded-xl shadow-md flex items-center space-x-2 transition-all hover:scale-105 active:scale-95">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span id="ai-btn-text">Query Live Gemini AI</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: INTERACTIVE QUIZ AREA -->
+    <section id="tab-quiz" class="hidden max-w-3xl mx-auto space-y-6">
+      <div class="bg-gradient-to-br from-indigo-900 to-purple-900 text-white p-6 sm:p-8 rounded-3xl shadow-xl space-y-4 relative overflow-hidden">
+        <div class="absolute right-0 top-0 translate-x-1/3 -translate-y-1/3 w-48 h-48 bg-white/5 rounded-full pointer-events-none"></div>
+        <div class="flex items-center space-x-3">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/30 flex items-center justify-center text-purple-300 text-xl shadow-inner">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <div>
+            <h1 class="text-2xl font-extrabold">Acronym Championship</h1>
+            <p class="text-sm text-purple-200">Prove your expertise on global short forms and full forms!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Setup Screen -->
+      <div id="quiz-setup" class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <h2 class="text-lg font-bold">Configure Your Quiz</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 mb-2">Category Sector</label>
+            <select id="quiz-category" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-slate-800 dark:text-slate-100 font-semibold">
+              <option value="all">All Sectors Mixed</option>
+              <option value="Technology">Technology (Tech)</option>
+              <option value="Medical">Medical / Healthcare</option>
+              <option value="Slang">Internet Slang / Chat</option>
+              <option value="Corporate">Corporate / Business</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 mb-2">Number of Questions</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setQuizLength(5)" class="quiz-len-btn py-3 rounded-xl border-2 border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 font-bold" data-len="5">5</button>
+              <button onclick="setQuizLength(10)" class="quiz-len-btn py-3 rounded-xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 font-bold" data-len="10">10</button>
+              <button onclick="setQuizLength(15)" class="quiz-len-btn py-3 rounded-xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 font-bold" data-len="15">15</button>
+            </div>
+          </div>
+        </div>
+        <button onclick="startQuiz()" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-extrabold py-4 rounded-xl transition-all shadow-lg shadow-brand-500/20 flex items-center justify-center space-x-2 active:scale-[0.99]">
+          <i class="fa-solid fa-play"></i>
+          <span>Begin Quiz Arena</span>
+        </button>
+      </div>
+
+      <!-- Quiz Execution Screen -->
+      <div id="quiz-play" class="hidden bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <!-- Progress details -->
+        <div class="flex justify-between items-center text-sm font-semibold text-slate-500 dark:text-slate-400">
+          <span>Question <span id="quiz-current-num" class="text-brand-500">1</span> of <span id="quiz-total-num">10</span></span>
+          <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full flex items-center space-x-1.5">
+            <i class="fa-solid fa-star text-amber-500"></i>
+            <span>Score: <span id="quiz-score" class="text-slate-800 dark:text-white font-bold">0</span></span>
+          </span>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+          <div id="quiz-progress-bar" class="bg-brand-500 h-full transition-all duration-300" style="width: 10%"></div>
+        </div>
+
+        <!-- Question Body -->
+        <div class="space-y-3">
+          <span class="inline-block text-xs uppercase font-extrabold px-2.5 py-1 rounded bg-brand-50 text-brand-600 dark:bg-brand-950/40 dark:text-brand-400" id="quiz-question-category">
+            TECHNOLOGY
+          </span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800 dark:text-slate-100">
+            What is the full form of <span id="quiz-question-word" class="text-brand-500 dark:text-brand-400">NASA</span>?
+          </h2>
+        </div>
+
+        <!-- Options Container -->
+        <div class="grid grid-cols-1 gap-3.5" id="quiz-options-grid">
+          <!-- Dynamic options loaded here -->
+        </div>
+
+        <!-- Feedbacks and Action -->
+        <div class="flex justify-between items-center pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div id="quiz-feedback" class="text-sm font-bold flex items-center space-x-2">
+            <!-- Filled dynamically -->
+          </div>
+          <button id="quiz-next-btn" onclick="nextQuizQuestion()" class="hidden bg-brand-500 hover:bg-brand-600 text-white font-bold px-5 py-2.5 rounded-xl transition-all flex items-center space-x-2 active:scale-95">
+            <span>Next Question</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quiz Results Screen -->
+      <div id="quiz-results" class="hidden bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl text-center space-y-6">
+        <div class="w-24 h-24 mx-auto rounded-full bg-amber-50 dark:bg-amber-950/30 flex items-center justify-center text-amber-500 text-5xl animate-bounce">
+          <i class="fa-solid fa-trophy"></i>
+        </div>
+        <div class="space-y-2">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800 dark:text-white">Arena Completed!</h2>
+          <p class="text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+            You did an incredible job decoding abbreviations. Here are your final statistics.
+          </p>
+        </div>
+
+        <!-- Score board -->
+        <div class="max-w-md mx-auto grid grid-cols-2 gap-4 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl">
+          <div>
+            <div class="text-3xl font-extrabold text-brand-500" id="results-score">8/10</div>
+            <div class="text-xs text-slate-500 uppercase tracking-widest font-semibold mt-1">Correct Answers</div>
+          </div>
+          <div>
+            <div class="text-3xl font-extrabold text-emerald-500" id="results-percent">80%</div>
+            <div class="text-xs text-slate-500 uppercase tracking-widest font-semibold mt-1">Accuracy</div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <button onclick="switchTab('quiz')" class="flex-1 bg-brand-500 hover:bg-brand-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-md">
+            <i class="fa-solid fa-redo mr-1.5"></i> Play Again
+          </button>
+          <button onclick="switchTab('dictionary')" class="flex-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-3.5 rounded-xl transition-all">
+            <i class="fa-solid fa-book-open mr-1.5"></i> Back to Dictionary
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: CONTRIBUTE ACRONYM -->
+    <section id="tab-contribute" class="hidden max-w-2xl mx-auto space-y-6">
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+        <div class="space-y-2 border-b border-slate-100 dark:border-slate-800 pb-5">
+          <h1 class="text-2xl font-extrabold text-slate-800 dark:text-slate-100">Submit a New Abbreviation</h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            Expand our world catalog. Submit a short form and full form combination. It will instantly get stored in your local session index!
+          </p>
+        </div>
+
+        <form id="submission-form" onsubmit="handleContribution(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-bold text-slate-600 dark:text-slate-400 mb-1">Short Form *</label>
+              <input 
+                type="text" 
+                id="form-short" 
+                required 
+                placeholder="e.g., API" 
+                class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-slate-800 dark:text-slate-100"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-slate-600 dark:text-slate-400 mb-1">Full Form *</label>
+              <input 
+                type="text" 
+                id="form-full" 
+                required 
+                placeholder="e.g., Application Programming Interface" 
+                class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-slate-800 dark:text-slate-100"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-slate-600 dark:text-slate-400 mb-1">Sector/Category *</label>
+            <select id="form-category" required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-slate-800 dark:text-slate-100">
+              <option value="Technology">Technology</option>
+              <option value="Medical">Medical / Health</option>
+              <option value="Corporate">Corporate / Business</option>
+              <option value="Finance">Finance / Economy</option>
+              <option value="Slang">Slang / Chat</option>
+              <option value="Science">Science & Physics</option>
+              <option value="Military">Military & Defense</option>
+              <option value="Global">Global Orgs / Public Institutions</option>
+              <option value="General">General / Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-slate-600 dark:text-slate-400 mb-1">What does it mean? (Description)</label>
+            <textarea 
+              id="form-desc" 
+              rows="3" 
+              placeholder="Provide a quick explanation of what this acronym represents..." 
+              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-slate-800 dark:text-slate-100"
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-slate-600 dark:text-slate-400 mb-1">Context/Example usage</label>
+            <input 
+              type="text" 
+              id="form-context" 
+              placeholder="e.g., 'We built a custom REST API for our mobile client.'" 
+              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-slate-800 dark:text-slate-100"
+            />
+          </div>
+
+          <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold py-3.5 rounded-xl transition-all shadow-md active:scale-[0.99] flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Register & Save New Acronym</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none">
+    <!-- Notifications are dynamically injected -->
+  </div>
+
+  <!-- POPUP/MODAL DETAILS DIALOG -->
+  <div id="details-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+    <!-- Backdrop -->
+    <div onclick="closeDetailsModal()" class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"></div>
+    
+    <!-- Modal Window -->
+    <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl transition-all duration-300 transform scale-100 max-h-[90vh] flex flex-col">
+      <!-- Top banner color coded based on category -->
+      <div id="modal-banner" class="h-4 w-full bg-brand-500"></div>
+
+      <!-- Scrollable content -->
+      <div class="p-6 sm:p-8 space-y-6 overflow-y-auto">
+        <!-- Close button -->
+        <button onclick="closeDetailsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+
+        <!-- Category badge -->
+        <div class="flex items-center space-x-2">
+          <span id="modal-category" class="inline-block text-xs uppercase font-extrabold px-2.5 py-1 rounded bg-brand-100 text-brand-700 dark:bg-brand-950 dark:text-brand-300">
+            TECHNOLOGY
+          </span>
+          <span id="modal-source" class="inline-block text-xs font-semibold px-2 py-1 rounded bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+            Offline Index
+          </span>
+        </div>
+
+        <!-- Header -->
+        <div class="space-y-1">
+          <h2 id="modal-short" class="text-4xl font-black text-slate-800 dark:text-white tracking-tight flex items-center justify-between">
+            NASA
+          </h2>
+          <h3 id="modal-full" class="text-lg font-bold text-brand-500 dark:text-brand-400 leading-snug">
+            National Aeronautics and Space Administration
+          </h3>
+        </div>
+
+        <!-- Description Block -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest">About this Term</h4>
+          <p id="modal-desc" class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            The independent agency of the United States federal government responsible for the civil space program, aeronautics research, and space research.
+          </p>
+        </div>
+
+        <!-- Context usage -->
+        <div id="modal-context-block" class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-1">
+          <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center space-x-1.5">
+            <i class="fa-solid fa-quote-left"></i>
+            <span>Real-World Usage</span>
+          </h4>
+          <p id="modal-context" class="italic text-slate-600 dark:text-slate-300 text-sm">
+            "NASA successfully landed another rover on Mars."
+          </p>
+        </div>
+
+        <!-- Control tools (Audio, Copy, Search) -->
+        <div class="grid grid-cols-2 gap-3.5 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <button id="modal-copy-btn" onclick="copyModalAcronym()" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-2.5 px-4 rounded-xl text-sm transition-all flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-copy"></i>
+            <span>Copy Full Form</span>
+          </button>
+          <button onclick="pronounceModalAcronym()" class="bg-brand-50 dark:bg-brand-950/40 hover:bg-brand-100 dark:hover:bg-brand-900 text-brand-600 dark:text-brand-400 font-bold py-2.5 px-4 rounded-xl text-sm transition-all flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-volume-high"></i>
+            <span>Pronounce</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI LOADER OVERLAY MODAL -->
+  <div id="ai-loading-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md"></div>
+    <!-- Box -->
+    <div class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-2xl text-center space-y-6">
+      <div class="relative w-20 h-20 mx-auto">
+        <!-- Glowing outer aura -->
+        <div class="absolute inset-0 rounded-full bg-brand-500/20 animate-ping"></div>
+        <!-- Main spinner -->
+        <div class="w-20 h-20 rounded-full border-4 border-brand-200 dark:border-slate-800 border-t-brand-500 animate-spin"></div>
+        <div class="absolute inset-0 flex items-center justify-center text-brand-500 text-2xl">
+          <i class="fa-solid fa-wand-magic-sparkles animate-pulse"></i>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <h3 class="text-xl font-extrabold text-slate-800 dark:text-white flex items-center justify-center space-x-2">
+          <span>Consulting Gemini Core AI</span>
+        </h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+          Searching global databases, dictionaries, and research networks to decipher your acronym. This will take a second...
+        </p>
+      </div>
+      <!-- Progress Bar (Fake but elegant) -->
+      <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+        <div id="ai-loading-progress" class="bg-gradient-to-r from-brand-500 to-indigo-500 h-full w-0 transition-all duration-1000"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-white font-extrabold text-sm">
+          A
+        </div>
+        <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">
+          © 2026 Acronymia. Unified Knowledge Index.
+        </span>
+      </div>
+      <div class="flex items-center space-x-4 text-xs text-slate-400 dark:text-slate-500 font-semibold">
+        <span>Powered by Gemini 2.5 Flash</span>
+        <span>•</span>
+        <span>Strict Zero-Lag Index</span>
+        <span>•</span>
+        <span>Fully Touch Responsive</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MAIN SCRIPT CONTROLLING ENGINE -->
+  <script>
+    // Empty key is supplied at runtime in premium environment
+    const apiKey = ""; 
+
+    // Seed Data: Powerful Categorized Acronym Database
+    const initialAcronyms = [
+      // Technology
+      { shortForm: "API", fullForm: "Application Programming Interface", category: "Technology", description: "A set of protocols and tools that allows different software applications to communicate and transfer data seamlessly with each other.", context: "We integrated a weather map API into our flight tracking software." },
+      { shortForm: "SaaS", fullForm: "Software as a Service", category: "Technology", description: "A software licensing and delivery model in which software is licensed on a subscription basis and centrally hosted on the cloud.", context: "Salesforce and Slack are prime examples of profitable SaaS businesses." },
+      { shortForm: "HTTP", fullForm: "Hypertext Transfer Protocol", category: "Technology", description: "The foundation of data communication for the World Wide Web, defining how messages are formatted and transmitted across servers and browsers.", context: "Always ensure your site uses HTTPS for security over regular HTTP." },
+      { shortForm: "JSON", fullForm: "JavaScript Object Notation", category: "Technology", description: "A lightweight, text-based, language-independent data interchange format that is easy for humans to read and write, and easy for machines to parse.", context: "The web application sends updates as compact JSON payloads." },
+      { shortForm: "AI", fullForm: "Artificial Intelligence", category: "Technology", description: "The simulation of human intelligence processes by computer systems, especially learning, reasoning, and self-correction.", context: "Deep learning models are driving the major advancements in modern AI." },
+      { shortForm: "SQL", fullForm: "Structured Query Language", category: "Technology", description: "A domain-specific programming language designed for managing and manipulating relational databases.", context: "She wrote an optimized SQL query to pull sales numbers for the fourth quarter." },
+      { shortForm: "CPU", fullForm: "Central Processing Unit", category: "Technology", description: "The primary component of a computer that acts as its 'brain', performing most of the processing tasks and instruction executions.", context: "The latest smartphone features an ultra-fast 8-core CPU." },
+      { shortForm: "RAM", fullForm: "Random Access Memory", category: "Technology", description: "A type of computer memory that can be read and changed in any order, used to store working data and machine code temporarily.", context: "Adding more RAM will prevent your computer from lagging when running multiple heavy applications." },
+      { shortForm: "HTML", fullForm: "Hypertext Markup Language", category: "Technology", description: "The standard markup language used to structure and display web pages and content on the internet.", context: "He learned HTML in his very first web design class." },
+      { shortForm: "CSS", fullForm: "Cascading Style Sheets", category: "Technology", description: "A style sheet language used to describe the presentation and layout of a document written in a markup language like HTML.", context: "The beautiful UI of the website was styled entirely using utility-first CSS." },
+      
+      // Medical
+      { shortForm: "MRI", fullForm: "Magnetic Resonance Imaging", category: "Medical", description: "A non-invasive medical imaging technique that uses strong magnetic fields and radio waves to generate detailed images of organs and tissues inside the body.", context: "The doctor recommended an MRI scan to check her knee ligament injury." },
+      { shortForm: "ICU", fullForm: "Intensive Care Unit", category: "Medical", description: "A special department of a hospital that provides intensive care medicine and continuous monitoring to patients with life-threatening illnesses.", context: "The trauma patient was rushed immediately to the ICU after surgery." },
+      { shortForm: "DNA", fullForm: "Deoxyribonucleic Acid", category: "Medical", description: "A self-replicating material present in nearly all living organisms as the main constituent of chromosomes, carrying genetic instructions.", context: "The forensic lab verified the identity of the suspect using DNA analysis." },
+      { shortForm: "CPR", fullForm: "Cardiopulmonary Resuscitation", category: "Medical", description: "An emergency procedure combining chest compressions and artificial ventilation to manually preserve brain function during cardiac arrest.", context: "Knowing CPR can save a life when someone is drowning or having a heart attack." },
+      { shortForm: "OTC", fullForm: "Over the Counter", category: "Medical", description: "Medicines sold directly to a consumer without a prescription from a healthcare professional.", context: "You don't need a prescription for OTC painkillers like aspirin." },
+      { shortForm: "ADHD", fullForm: "Attention Deficit Hyperactivity Disorder", category: "Medical", description: "A chronic neurodevelopmental disorder characterized by difficulty paying attention, hyperactivity, and impulsive behavior.", context: "Pediatricians can offer personalized therapies to help kids manage ADHD." },
+      
+      // Corporate / Business
+      { shortForm: "CEO", fullForm: "Chief Executive Officer", category: "Corporate", description: "The highest-ranking executive in a company, primary responsible for making major corporate decisions and managing overall operations.", context: "The board of directors appointed a new CEO to lead the tech merger." },
+      { shortForm: "ROI", fullForm: "Return on Investment", category: "Corporate", description: "A financial metric used to evaluate the efficiency or profitability of an investment relative to its cost.", context: "Our marketing campaign achieved a 250% ROI in just three weeks." },
+      { shortForm: "B2B", fullForm: "Business to Business", category: "Corporate", description: "A transaction, commerce, or business model focused on selling products or services to other businesses rather than individual consumers.", context: "Acronymia operates both as a consumer service and a B2B API." },
+      { shortForm: "HR", fullForm: "Human Resources", category: "Corporate", description: "The division of a business responsible for finding, screening, recruiting, and training job applicants, as well as administering employee benefits.", context: "Please submit your vacation request form directly to HR." },
+      { shortForm: "KPI", fullForm: "Key Performance Indicator", category: "Corporate", description: "A quantifiable measure used to evaluate the success of an organization or of a particular activity in meeting performance targets.", context: "Customer retention rate is our primary KPI for the support division." },
+      { shortForm: "SEO", fullForm: "Search Engine Optimization", category: "Corporate", description: "The process of improving the quality and volume of web traffic to a website or web page from search engines.", context: "Investing in SEO helped our e-commerce platform rank #1 on Google." },
+
+      // Finance
+      { shortForm: "EBITDA", fullForm: "Earnings Before Interest, Taxes, Depreciation, and Amortization", category: "Finance", description: "A financial metric used to measure a company's core operating profitability by stripping out non-operating expenses.", context: "The company's healthy EBITDA attracted several venture capitalists." },
+      { shortForm: "APR", fullForm: "Annual Percentage Rate", category: "Finance", description: "The yearly interest rate charged on borrowing or earned through an investment, including any extra fees.", context: "Be sure to compare the APR on credit cards before signing up." },
+      { shortForm: "IPO", fullForm: "Initial Public Offering", category: "Finance", description: "The process by which a private company offers its shares to the public on a stock exchange for the first time.", context: "The tech unicorn launched its IPO, raising over five billion dollars." },
+      { shortForm: "GDP", fullForm: "Gross Domestic Product", category: "Finance", description: "The total monetary value of all finished goods and services produced within a country's borders in a specific time period.", context: "The nation's GDP grew by a steady 3.4% last quarter." },
+
+      // Internet Slang
+      { shortForm: "IMO", fullForm: "In My Opinion", category: "Slang", description: "A widely used shorthand in text messaging and online forums to introduce a personal thought or view.", context: "IMO, the dark theme looks much better than the light theme." },
+      { shortForm: "TL;DR", fullForm: "Too Long; Didn't Read", category: "Slang", description: "A summary provided at the beginning or end of a lengthy text post, making the main point easy to digest.", context: "TL;DR: The website offers instant short form dictionary searches with AI fallback." },
+      { shortForm: "LMK", fullForm: "Let Me Know", category: "Slang", description: "An informal abbreviation used in texting to request a follow-up response or confirmation later.", context: "LMK if you are free for lunch tomorrow." },
+      { shortForm: "FOMO", fullForm: "Fear Of Missing Out", category: "Slang", description: "A feeling of anxiety or apprehension that an exciting or interesting event is happening elsewhere, often aroused by posts seen on social media.", context: "Don't let FOMO force you into buying assets you don't understand." },
+      { shortForm: "DIY", fullForm: "Do It Yourself", category: "Slang", description: "The method of building, modifying, or repairing things by oneself without the direct help of experts.", context: "I followed a DIY guide to assemble this wooden computer desk." },
+
+      // Science
+      { shortForm: "LASER", fullForm: "Light Amplification by Stimulated Emission of Radiation", category: "Science", description: "A device that emits light through a process of optical amplification based on the stimulated emission of electromagnetic radiation.", context: "The engineer calibrated the high-intensity laser cutter." },
+      { shortForm: "RADAR", fullForm: "Radio Detection and Ranging", category: "Science", description: "A system for detecting the presence, direction, distance, and speed of aircraft, ships, and other objects by sending out pulses of high-frequency electromagnetic waves.", context: "Air traffic controllers rely on advanced radar to keep flights safely separated." },
+      { shortForm: "SCUBA", fullForm: "Self-Contained Underwater Breathing Apparatus", category: "Science", description: "An independent breathing equipment used by divers to breathe underwater for prolonged durations.", context: "She packed her scuba gear for her trip to the Great Barrier Reef." },
+      
+      // Global Orgs
+      { shortForm: "NASA", fullForm: "National Aeronautics and Space Administration", category: "Global", description: "An independent agency of the US federal government responsible for civil spaceflight, aerospace research, and Earth exploration.", context: "NASA announced plans to land astronauts on the lunar surface once more." },
+      { shortForm: "WHO", fullForm: "World Health Organization", category: "Global", description: "A specialized agency of the United Nations responsible for international public health, coordination of pandemic responses, and sanitary standards.", context: "The WHO issued guidelines for clean drinking water safety worldwide." },
+      { shortForm: "UNESCO", fullForm: "United Nations Educational, Scientific and Cultural Organization", category: "Global", description: "A specialized UN agency aimed at promoting world peace and security through international cooperation in education, arts, sciences, and culture.", context: "The ancient temple was officially designated a UNESCO World Heritage site." }
+    ];
+
+    // Local application state
+    let acronyms = [...initialAcronyms];
+    let selectedCategory = "all";
+    let selectedLetter = "all";
+    let searchQuery = "";
+    let sortOrder = "asc"; // "asc" | "desc" | "recent"
+    
+    // Quiz State Variables
+    let quizQuestions = [];
+    let currentQuizIndex = 0;
+    let quizScore = 0;
+    let quizLength = 10;
+    let quizAnswerSelected = false;
+
+    // Load custom additions from session storage on init
+    try {
+      const saved = sessionStorage.getItem("custom_acronyms");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        acronyms = [...parsed, ...initialAcronyms];
+      }
+    } catch (e) {
+      console.error("Failed to load custom acronyms from session", e);
+    }
+
+    // App Initialization
+    window.onload = function() {
+      renderCategoryPills();
+      renderAlphaJumpMenu();
+      renderDictionary();
+      updateStats();
+    };
+
+    // Category mappings with dynamic theme colors for visualization
+    const categoryColors = {
+      Technology: "border-l-brand-500 text-brand-600 dark:text-brand-400 bg-brand-50/50 dark:bg-brand-950/20",
+      Medical: "border-l-emerald-500 text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20",
+      Corporate: "border-l-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-indigo-950/20",
+      Finance: "border-l-amber-500 text-amber-600 dark:text-amber-400 bg-amber-50/50 dark:bg-amber-950/20",
+      Slang: "border-l-pink-500 text-pink-600 dark:text-pink-400 bg-pink-50/50 dark:bg-pink-950/20",
+      Science: "border-l-teal-500 text-teal-600 dark:text-teal-400 bg-teal-50/50 dark:bg-teal-950/20",
+      Military: "border-l-red-500 text-red-600 dark:text-red-400 bg-red-50/50 dark:bg-red-950/20",
+      Global: "border-l-purple-500 text-purple-600 dark:text-purple-400 bg-purple-50/50 dark:bg-purple-950/20",
+      General: "border-l-slate-500 text-slate-600 dark:text-slate-400 bg-slate-50/50 dark:bg-slate-950/20"
+    };
+
+    // Helper to get category classes safely
+    function getCategoryColorClass(cat) {
+      return categoryColors[cat] || categoryColors.General;
+    }
+
+    // Dynamic UI Renderers
+    function renderCategoryPills() {
+      const container = document.getElementById("category-pills-container");
+      const categories = ["all", "Technology", "Medical", "Corporate", "Finance", "Slang", "Science", "Global", "General"];
+      
+      let html = "";
+      categories.forEach(cat => {
+        const isSelected = selectedCategory === cat;
+        const displayName = cat === "all" ? "All Sectors" : cat;
+        const activeClass = isSelected 
+          ? "bg-brand-500 text-white shadow-md shadow-brand-500/10 border-brand-500" 
+          : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800";
+        
+        html += `
+          <button 
+            onclick="setCategoryFilter('${cat}')" 
+            class="px-4 py-2 rounded-xl text-sm font-semibold border whitespace-nowrap transition-all-300 select-none ${activeClass}"
+          >
+            ${displayName}
+          </button>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function renderAlphaJumpMenu() {
+      const container = document.getElementById("alpha-jump-container");
+      const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+      
+      let html = `<button onclick="setLetterFilter('all')" class="w-10 h-10 flex items-center justify-center rounded-xl text-xs font-bold transition-all-300 ${selectedLetter === 'all' ? 'bg-brand-500 text-white' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}">ALL</button>`;
+      
+      alphabet.forEach(letter => {
+        const isSelected = selectedLetter === letter;
+        const activeClass = isSelected 
+          ? "bg-brand-500 text-white font-extrabold" 
+          : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800";
+        
+        html += `
+          <button 
+            onclick="setLetterFilter('${letter}')" 
+            class="w-8 h-8 flex items-center justify-center rounded-lg text-xs font-bold transition-all-300 ${activeClass}"
+          >
+            ${letter}
+          </button>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function renderDictionary() {
+      const grid = document.getElementById("dictionary-grid");
+      const emptyState = document.getElementById("empty-state");
+      const counter = document.getElementById("results-count");
+      
+      // 1. Filtering logic
+      let filtered = acronyms.filter(item => {
+        // Category filter
+        const matchCategory = selectedCategory === "all" || item.category === selectedCategory;
+        // Letter filter (starts with)
+        const matchLetter = selectedLetter === "all" || item.shortForm.toUpperCase().startsWith(selectedLetter);
+        // Search text filter
+        const query = searchQuery.trim().toLowerCase();
+        const matchSearch = !query || 
+          item.shortForm.toLowerCase().includes(query) || 
+          item.fullForm.toLowerCase().includes(query) || 
+          (item.description && item.description.toLowerCase().includes(query));
+        
+        return matchCategory && matchLetter && matchSearch;
+      });
+
+      // 2. Sorting logic
+      if (sortOrder === "asc") {
+        filtered.sort((a, b) => a.shortForm.localeCompare(b.shortForm));
+      } else if (sortOrder === "desc") {
+        filtered.sort((a, b) => b.shortForm.localeCompare(a.shortForm));
+      } else if (sortOrder === "recent") {
+        // Keeps user submissions at top if any
+        filtered.sort((a, b) => (b.userCreated ? 1 : 0) - (a.userCreated ? 1 : 0));
+      }
+
+      // Update counter UI
+      counter.innerHTML = `Showing <span class="font-bold text-slate-800 dark:text-slate-200">${filtered.length}</span> standard abbreviations`;
+
+      // 3. Handle Empty State
+      if (filtered.length === 0) {
+        grid.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        emptyState.classList.add("flex");
+        return;
+      } else {
+        emptyState.classList.add("hidden");
+        emptyState.classList.remove("flex");
+      }
+
+      // 4. Render Grid HTML
+      let html = "";
+      filtered.forEach((item, index) => {
+        const catClass = getCategoryColorClass(item.category);
+        const userTag = item.userCreated ? `<span class="bg-emerald-100 text-emerald-800 text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">My Added</span>` : "";
+        
+        html += `
+          <div 
+            onclick="openDetails('${item.shortForm}')"
+            class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 hover:border-brand-300 dark:hover:border-brand-800 transition-all-300 cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-0.5 group flex flex-col justify-between h-48 border-l-4 ${catClass}"
+          >
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">${item.category}</span>
+                <div class="flex items-center space-x-1.5">
+                  ${userTag}
+                  <span class="text-slate-300 group-hover:text-brand-500 transition-colors">
+                    <i class="fa-solid fa-expand text-xs"></i>
+                  </span>
+                </div>
+              </div>
+              <div>
+                <h3 class="text-xl font-black text-slate-800 dark:text-white group-hover:text-brand-500 transition-colors uppercase">
+                  ${item.shortForm}
+                </h3>
+                <p class="text-sm font-semibold text-slate-500 dark:text-slate-300 line-clamp-1 mt-0.5">
+                  ${item.fullForm}
+                </p>
+              </div>
+            </div>
+            
+            <p class="text-xs text-slate-400 dark:text-slate-500 line-clamp-2 mt-2 leading-relaxed">
+              ${item.description || "No description provided. Click to look up or add context."}
+            </p>
+          </div>
+        `;
+      });
+
+      grid.innerHTML = html;
+    }
+
+    function updateStats() {
+      document.getElementById("stat-total").innerText = acronyms.length;
+      
+      const distinctCats = new Set(acronyms.map(i => i.category));
+      document.getElementById("stat-categories").innerText = distinctCats.size;
+
+      const userSubmissions = acronyms.filter(i => i.userCreated).length;
+      document.getElementById("stat-user-added").innerText = userSubmissions;
+    }
+
+    // Interactive Action Triggers
+    function setCategoryFilter(cat) {
+      selectedCategory = cat;
+      renderCategoryPills();
+      renderDictionary();
+    }
+
+    function setLetterFilter(letter) {
+      selectedLetter = letter;
+      renderAlphaJumpMenu();
+      renderDictionary();
+    }
+
+    function resetFilters() {
+      selectedCategory = "all";
+      selectedLetter = "all";
+      searchQuery = "";
+      document.getElementById("search-input").value = "";
+      renderCategoryPills();
+      renderAlphaJumpMenu();
+      renderDictionary();
+    }
+
+    function handleSortChange(val) {
+      sortOrder = val;
+      renderDictionary();
+    }
+
+    function handleSearchInput() {
+      const input = document.getElementById("search-input");
+      searchQuery = input.value;
+      renderDictionary();
+      showAutosuggest(input.value);
+    }
+
+    function triggerSearch() {
+      const input = document.getElementById("search-input");
+      searchQuery = input.value;
+      renderDictionary();
+      hideAutosuggest();
+    }
+
+    // Dynamic Autocomplete Autosuggest engine
+    function showAutosuggest(val) {
+      const box = document.getElementById("autosuggest-box");
+      if (!val || val.trim().length < 1) {
+        box.classList.add("hidden");
+        return;
+      }
+
+      const raw = val.trim().toLowerCase();
+      const suggestions = acronyms.filter(item => 
+        item.shortForm.toLowerCase().startsWith(raw) || 
+        item.fullForm.toLowerCase().includes(raw)
+      ).slice(0, 5);
+
+      if (suggestions.length === 0) {
+        box.classList.add("hidden");
+        return;
+      }
+
+      let html = "";
+      suggestions.forEach(item => {
+        html += `
+          <div 
+            onclick="selectAutosuggest('${item.shortForm}')" 
+            class="px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer border-b border-slate-100 dark:border-slate-800 last:border-0 flex items-center justify-between transition-colors"
+          >
+            <div>
+              <span class="font-bold text-brand-500 uppercase">${item.shortForm}</span>
+              <span class="text-xs text-slate-400 dark:text-slate-500 ml-2">— ${item.fullForm}</span>
+            </div>
+            <span class="text-[10px] uppercase font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">${item.category}</span>
+          </div>
+        `;
+      });
+
+      box.innerHTML = html;
+      box.classList.remove("hidden");
+    }
+
+    function selectAutosuggest(short) {
+      document.getElementById("search-input").value = short;
+      searchQuery = short;
+      hideAutosuggest();
+      openDetails(short);
+    }
+
+    function hideAutosuggest() {
+      setTimeout(() => {
+        document.getElementById("autosuggest-box").classList.add("hidden");
+      }, 200);
+    }
+
+    // Modal Control & Clipboard Tools
+    let currentModalItem = null;
+
+    function openDetails(shortForm) {
+      const item = acronyms.find(i => i.shortForm.toUpperCase() === shortForm.toUpperCase());
+      if (!item) return;
+
+      currentModalItem = item;
+
+      // Update Modal DOM
+      document.getElementById("modal-category").innerText = item.category;
+      document.getElementById("modal-source").innerText = item.userCreated ? "User Submitted" : (item.isAI ? "Gemini Live AI Core" : "Offline Index");
+      
+      const shortTitleNode = document.getElementById("modal-short");
+      shortTitleNode.innerHTML = `
+        <span>${item.shortForm}</span>
+        <button onclick="copyToClipboard('${item.shortForm}')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-sm transition-colors" title="Copy Acronym">
+          <i class="fa-solid fa-copy"></i>
+        </button>
+      `;
+
+      document.getElementById("modal-full").innerText = item.fullForm;
+      document.getElementById("modal-desc").innerText = item.description || "No extended summary description currently available.";
+      
+      const contextBlock = document.getElementById("modal-context-block");
+      if (item.context) {
+        contextBlock.classList.remove("hidden");
+        document.getElementById("modal-context").innerText = `"${item.context}"`;
+      } else {
+        contextBlock.classList.add("hidden");
+      }
+
+      // Adjust dynamic color strip
+      const banner = document.getElementById("modal-banner");
+      banner.className = "h-4 w-full";
+      if (item.category === "Technology") banner.classList.add("bg-brand-500");
+      else if (item.category === "Medical") banner.classList.add("bg-emerald-500");
+      else if (item.category === "Corporate") banner.classList.add("bg-indigo-500");
+      else if (item.category === "Finance") banner.classList.add("bg-amber-500");
+      else if (item.category === "Slang") banner.classList.add("bg-pink-500");
+      else if (item.category === "Science") banner.classList.add("bg-teal-500");
+      else if (item.category === "Global") banner.classList.add("bg-purple-500");
+      else banner.classList.add("bg-slate-500");
+
+      // Show Modal
+      const modal = document.getElementById("details-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeDetailsModal() {
+      const modal = document.getElementById("details-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function copyModalAcronym() {
+      if (!currentModalItem) return;
+      copyToClipboard(currentModalItem.fullForm, "Full form copied to clipboard!");
+    }
+
+    function copyToClipboard(text, customMessage) {
+      const el = document.createElement('textarea');
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+
+      showToast(customMessage || "Copied to clipboard!");
+    }
+
+    function pronounceModalAcronym() {
+      if (!currentModalItem) return;
+      if ('speechSynthesis' in window) {
+        const textToSpeak = `${currentModalItem.shortForm}. Stand for: ${currentModalItem.fullForm}`;
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.rate = 0.95;
+        window.speechSynthesis.speak(utterance);
+        showToast("Speaking aloud...");
+      } else {
+        showToast("Speech synthesis is not supported on your device");
+      }
+    }
+
+    // Interactive Toast Notification System
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toast-container");
+      
+      const toast = document.createElement("div");
+      toast.className = "p-4 rounded-2xl shadow-xl flex items-center space-x-3 text-sm font-semibold border backdrop-blur-md transform translate-y-2 opacity-0 transition-all duration-300 pointer-events-auto bg-white/95 text-slate-800 border-slate-200 dark:bg-slate-900/95 dark:text-slate-100 dark:border-slate-800";
+      
+      let icon = `<i class="fa-solid fa-info-circle text-brand-500 text-base"></i>`;
+      if (type === "success") icon = `<i class="fa-solid fa-circle-check text-emerald-500 text-base"></i>`;
+      if (type === "error") icon = `<i class="fa-solid fa-circle-exclamation text-rose-500 text-base"></i>`;
+      
+      toast.innerHTML = `
+        ${icon}
+        <span class="flex-grow">${message}</span>
+        <button class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" onclick="this.parentElement.remove()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      `;
+
+      container.appendChild(toast);
+      
+      // Animate entry
+      setTimeout(() => {
+        toast.classList.remove("translate-y-2", "opacity-0");
+      }, 50);
+
+      // Auto dismiss after 3.5s
+      setTimeout(() => {
+        toast.classList.add("translate-y-2", "opacity-0");
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 3500);
+    }
+
+    // Toggle Mobile Navigation Drawer
+    function toggleMobileMenu() {
+      const drawer = document.getElementById("mobile-menu");
+      const icon = document.getElementById("mobile-menu-icon");
+      if (drawer.classList.contains("hidden")) {
+        drawer.classList.remove("hidden");
+        icon.className = "fa-solid fa-xmark text-lg";
+      } else {
+        drawer.classList.add("hidden");
+        icon.className = "fa-solid fa-bars text-lg";
+      }
+    }
+
+    // Smooth Navigation Tabs
+    function switchTab(tabId) {
+      // Hide all content blocks
+      document.getElementById("tab-dictionary").classList.add("hidden");
+      document.getElementById("tab-quiz").classList.add("hidden");
+      document.getElementById("tab-contribute").classList.add("hidden");
+
+      // Reset active button classes
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      tabButtons.forEach(btn => {
+        btn.className = "tab-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800";
+      });
+
+      // Show requested block
+      document.getElementById(`tab-${tabId}`).classList.remove("hidden");
+
+      // Highlight corresponding tab button
+      const activeBtn = document.getElementById(`btn-tab-${tabId}`);
+      if (activeBtn) {
+        activeBtn.className = "tab-btn px-4 py-2 rounded-lg text-sm font-semibold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/50";
+      }
+
+      // Also handle mobile navigation states
+      const mobileButtons = document.querySelectorAll("#mobile-menu button");
+      mobileButtons.forEach(btn => {
+        btn.className = "w-full text-left px-4 py-2.5 rounded-lg text-sm font-semibold flex items-center space-x-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800";
+      });
+      const activeMobBtn = document.getElementById(`mob-btn-tab-${tabId}`);
+      if (activeMobBtn) {
+        activeMobBtn.className = "w-full text-left px-4 py-2.5 rounded-lg text-sm font-semibold flex items-center space-x-2 text-brand-600 bg-brand-50 dark:text-brand-400 dark:bg-brand-950/50";
+      }
+    }
+
+    // User submission form handler
+    function handleContribution(e) {
+      e.preventDefault();
+
+      const short = document.getElementById("form-short").value.trim().toUpperCase();
+      const full = document.getElementById("form-full").value.trim();
+      const cat = document.getElementById("form-category").value;
+      const desc = document.getElementById("form-desc").value.trim();
+      const context = document.getElementById("form-context").value.trim();
+
+      // Simple validation checking duplicates
+      const exists = acronyms.some(item => item.shortForm.toUpperCase() === short);
+      if (exists) {
+        showToast(`"${short}" is already present in our database!`, "error");
+        return;
+      }
+
+      const newAcronym = {
+        shortForm: short,
+        fullForm: full,
+        category: cat,
+        description: desc || "Added by user contributor.",
+        context: context || "",
+        userCreated: true
+      };
+
+      // Unshift to place at the top of lists
+      acronyms.unshift(newAcronym);
+
+      // Save custom submissions to Session Storage
+      const userList = acronyms.filter(i => i.userCreated);
+      sessionStorage.setItem("custom_acronyms", JSON.stringify(userList));
+
+      showToast(`"${short}" registered successfully!`, "success");
+      
+      // Clear Form & Update UI
+      document.getElementById("submission-form").reset();
+      updateStats();
+      switchTab("dictionary");
+      
+      // Reset filtering state to display newly added card immediately
+      selectedCategory = "all";
+      selectedLetter = "all";
+      searchQuery = "";
+      renderCategoryPills();
+      renderAlphaJumpMenu();
+      renderDictionary();
+    }
+
+    // Interactive Quiz Engine Implementation
+    function setQuizLength(len) {
+      quizLength = len;
+      // Update UI selection classes
+      const buttons = document.querySelectorAll(".quiz-len-btn");
+      buttons.forEach(btn => {
+        const btnLen = parseInt(btn.getAttribute("data-len"));
+        if (btnLen === len) {
+          btn.className = "quiz-len-btn py-3 rounded-xl border-2 border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 font-bold";
+        } else {
+          btn.className = "quiz-len-btn py-3 rounded-xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 font-bold";
+        }
+      });
+    }
+
+    function startQuiz() {
+      const selectedCat = document.getElementById("quiz-category").value;
+      
+      // Filter potential pool items
+      let pool = [...acronyms];
+      if (selectedCat !== "all") {
+        pool = pool.filter(i => i.category === selectedCat);
+      }
+
+      // Safeguard: Ensure we have enough options
+      if (pool.length < 4) {
+        showToast("Not enough terms in this category to generate a balanced quiz. Mixing all categories.", "error");
+        pool = [...acronyms];
+      }
+
+      // Shuffle pool
+      pool.sort(() => Math.random() - 0.5);
+
+      // Crop to requested size
+      const limit = Math.min(pool.length, quizLength);
+      quizQuestions = pool.slice(0, limit);
+      quizLength = limit; // Adjust length if pool was smaller
+
+      // Initialize State
+      currentQuizIndex = 0;
+      quizScore = 0;
+      quizAnswerSelected = false;
+
+      // Update Screen Transition
+      document.getElementById("quiz-setup").classList.add("hidden");
+      document.getElementById("quiz-play").classList.remove("hidden");
+      document.getElementById("quiz-results").classList.add("hidden");
+
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      quizAnswerSelected = false;
+      document.getElementById("quiz-next-btn").classList.add("hidden");
+      document.getElementById("quiz-feedback").innerHTML = "";
+
+      const currentItem = quizQuestions[currentQuizIndex];
+      
+      // Render Question numbers & status
+      document.getElementById("quiz-current-num").innerText = currentQuizIndex + 1;
+      document.getElementById("quiz-total-num").innerText = quizLength;
+      document.getElementById("quiz-score").innerText = quizScore;
+      
+      const percent = ((currentQuizIndex + 1) / quizLength) * 100;
+      document.getElementById("quiz-progress-bar").style.width = `${percent}%`;
+
+      document.getElementById("quiz-question-category").innerText = currentItem.category;
+      document.getElementById("quiz-question-word").innerText = currentItem.shortForm;
+
+      // Make options (1 Correct + 3 Random incorrect full forms)
+      const correctOption = currentItem.fullForm;
+      const incorrectPool = acronyms
+        .filter(item => item.fullForm !== correctOption)
+        .map(item => item.fullForm);
+      
+      // Shuffle incorrect and take 3
+      incorrectPool.sort(() => Math.random() - 0.5);
+      const wrongOptions = incorrectPool.slice(0, 3);
+
+      const allOptions = [correctOption, ...wrongOptions];
+      allOptions.sort(() => Math.random() - 0.5); // Random position
+
+      // Render Options to DOM
+      const optionsGrid = document.getElementById("quiz-options-grid");
+      let html = "";
+      allOptions.forEach((opt, idx) => {
+        html += `
+          <button 
+            onclick="submitQuizAnswer(this, '${opt.replace(/'/g, "\\'")}', '${correctOption.replace(/'/g, "\\'")}')"
+            class="quiz-opt-btn w-full text-left px-5 py-4 border-2 border-slate-200 dark:border-slate-800 rounded-xl hover:border-slate-300 dark:hover:border-slate-700 font-semibold transition-all flex justify-between items-center bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200"
+          >
+            <span>${opt}</span>
+            <i class="quiz-status-icon hidden text-lg"></i>
+          </button>
+        `;
+      });
+      optionsGrid.innerHTML = html;
+    }
+
+    function submitQuizAnswer(buttonNode, selectedValue, correctValue) {
+      if (quizAnswerSelected) return; // Prevent multiple answers
+      quizAnswerSelected = true;
+
+      const isCorrect = selectedValue === correctValue;
+      const allButtons = document.querySelectorAll(".quiz-opt-btn");
+
+      // Highlight options
+      allButtons.forEach(btn => {
+        const text = btn.querySelector("span").innerText;
+        const icon = btn.querySelector(".quiz-status-icon");
+        
+        btn.disabled = true;
+        
+        if (text === correctValue) {
+          // Highlight correct answer
+          btn.classList.add("border-emerald-500", "bg-emerald-50", "dark:bg-emerald-950/20", "text-emerald-700", "dark:text-emerald-400");
+          icon.className = "quiz-status-icon fa-solid fa-circle-check text-emerald-500";
+          icon.classList.remove("hidden");
+        } else if (text === selectedValue && !isCorrect) {
+          // Highlight selected wrong answer
+          btn.classList.add("border-rose-500", "bg-rose-50", "dark:bg-rose-950/20", "text-rose-700", "dark:text-rose-400");
+          icon.className = "quiz-status-icon fa-solid fa-circle-xmark text-rose-500";
+          icon.classList.remove("hidden");
+        } else {
+          btn.classList.add("opacity-50");
+        }
+      });
+
+      // Update score & give instant feedback
+      const feedback = document.getElementById("quiz-feedback");
+      if (isCorrect) {
+        quizScore++;
+        document.getElementById("quiz-score").innerText = quizScore;
+        feedback.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400"><i class="fa-solid fa-thumbs-up"></i> Excellent! That is correct.</span>`;
+      } else {
+        feedback.innerHTML = `<span class="text-rose-600 dark:text-rose-400"><i class="fa-solid fa-face-frown"></i> Oops! Incorrect.</span>`;
+      }
+
+      // Show Next action button
+      document.getElementById("quiz-next-btn").classList.remove("hidden");
+    }
+
+    function nextQuizQuestion() {
+      currentQuizIndex++;
+      if (currentQuizIndex < quizLength) {
+        renderQuizQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      document.getElementById("quiz-play").classList.add("hidden");
+      document.getElementById("quiz-results").classList.remove("hidden");
+
+      // Calculate Scores
+      document.getElementById("results-score").innerText = `${quizScore}/${quizLength}`;
+      const accuracy = Math.round((quizScore / quizLength) * 100);
+      document.getElementById("results-percent").innerText = `${accuracy}%`;
+    }
+
+    // Modern Light / Dark Theme toggle switcher
+    function toggleTheme() {
+      const html = document.documentElement;
+      if (html.classList.contains("dark")) {
+        html.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      } else {
+        html.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      }
+    }
+
+    // Load local storage theme
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark" || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    // LIVE GEMINI 2.5 AI ACRONYM DECODER (Exponential Backoff Enabled)
+    async function triggerAISearch() {
+      const input = document.getElementById("search-input").value.trim();
+      if (!input) {
+        showToast("Please enter a short form query to look up with AI", "error");
+        return;
+      }
+      await queryGeminiAI(input);
+    }
+
+    async function triggerAISearchFromEmptyState() {
+      const input = document.getElementById("search-input").value.trim();
+      if (!input) {
+        showToast("Please enter an acronym first to search", "error");
+        return;
+      }
+      await queryGeminiAI(input);
+    }
+
+    // Live Fetch API Controller
+    async function queryGeminiAI(acronym) {
+      // Toggle Loader
+      const loader = document.getElementById("ai-loading-modal");
+      const progressBar = document.getElementById("ai-loading-progress");
+      loader.classList.remove("hidden");
+      loader.classList.add("flex");
+      
+      progressBar.style.width = "40%";
+      setTimeout(() => { progressBar.style.width = "85%"; }, 1000);
+
+      // System Instructions & Query Preparation
+      const systemPrompt = `You are a high-fidelity global acronym dictionary API. 
+Your objective is to decode any abbreviation or short form requested by the user. 
+Provide the correct full form, the most appropriate category, a clear description, and real-world example context. 
+If the acronym matches multiple things, pick the absolute most popular global representation. 
+You MUST respond with valid JSON matching the schema provided. Keep descriptions professional and educational.`;
+
+      const userQuery = `Lookup definition and expanded details for acronym: "${acronym}"`;
+
+      // Define retrying state variables
+      let success = false;
+      let retries = 0;
+      const maxRetries = 5;
+      let delay = 1000; // start with 1 second delay
+      let responseData = null;
+
+      while (retries < maxRetries && !success) {
+        try {
+          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: userQuery }] }],
+              systemInstruction: { parts: [{ text: systemPrompt }] },
+              generationConfig: { 
+                responseMimeType: "application/json", 
+                responseSchema: { 
+                  type: "OBJECT", 
+                  properties: {
+                    shortForm: { type: "STRING" },
+                    fullForm: { type: "STRING" },
+                    category: { type: "STRING" },
+                    description: { type: "STRING" },
+                    context: { type: "STRING" }
+                  }, 
+                  required: ["shortForm", "fullForm", "category", "description", "context"] 
+                } 
+              }
+            })
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP Error Status: ${response.status}`);
+          }
+
+          const result = await response.json();
+          const rawText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (rawText) {
+            responseData = JSON.parse(rawText);
+            success = true;
+          } else {
+            throw new Error("Empty candidate payload in Gemini response");
+          }
+
+        } catch (error) {
+          retries++;
+          if (retries >= maxRetries) {
+            console.error("Gemini Lookup failed after max retries: ", error);
+            loader.classList.add("hidden");
+            loader.classList.remove("flex");
+            showToast("Failed to reach Gemini AI services. Check your internet connection or try again shortly.", "error");
+            return;
+          }
+          // Wait with exponential backoff
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2; // exponential backoff multiplier
+        }
+      }
+
+      // complete loading progress
+      progressBar.style.width = "100%";
+      setTimeout(() => {
+        loader.classList.add("hidden");
+        loader.classList.remove("flex");
+        progressBar.style.width = "0%";
+      }, 300);
+
+      if (success && responseData) {
+        // Build an AI-created acronym item object
+        const aiAcronym = {
+          shortForm: responseData.shortForm || acronym.toUpperCase(),
+          fullForm: responseData.fullForm,
+          category: responseData.category || "General",
+          description: responseData.description || "Synthesized via Gemini live intelligence core search.",
+          context: responseData.context || "",
+          isAI: true
+        };
+
+        // Inject dynamic acronym directly into our session state if unique
+        const exists = acronyms.some(item => item.shortForm.toUpperCase() === aiAcronym.shortForm.toUpperCase());
+        if (!exists) {
+          acronyms.unshift(aiAcronym);
+          updateStats();
+          renderDictionary();
+        }
+
+        // Open newly fetched AI acronym detailed modal
+        openDetails(aiAcronym.shortForm);
+        showToast(`AI Lookup Successful for "${aiAcronym.shortForm}"!`, "success");
+      }
+    }
+  </script>
+</body>
+</html>
